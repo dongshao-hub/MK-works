@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>第二周4-8作业</title>
+    <script src="jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+    <label>
+        页码：<input type="text" name="page" value="1" />
+    </label>
+    <label>
+        数量：<input type="text" name="num" value="" />
+    </label>
+    <button type="button" id="submit">提交</button>
+    <pre></pre>
+    <script>
+        //点击发送请求
+        $('#submit').click(function () {
+            //先清空容器
+            $("pre").html("");
+            var page = 1,
+                num = $("input[ name='num' ]").val();
+            $.ajax({
+                url: 'http://localhost:36742/api/lists',
+                type: 'get',
+                dataType: "json",
+
+            }).done(function (data, status, xhr) {
+                console.log(data)
+
+                //将 js数据转换为 JSON 字符串
+                for (var i = 0; i < num; i++) {
+                    $("pre").append('<br />' + JSON.stringify(data, null, 2))
+                }
+            })
+        });
+
+    </script>
+</body>
+
+</html>
