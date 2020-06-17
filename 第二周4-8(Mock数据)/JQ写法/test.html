@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>第二周4-8作业</title>
+    <script src="http://mockjs.com/dist/mock.js"></script>
+    <script src="jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+    <label>
+        页码：<input type="text" name="page" value="1" />
+    </label>
+    <label>
+        数量：<input type="text" name="num" value="" />
+    </label>
+    <button type="button" id="submit">提交</button>
+    <pre></pre>
+    <script>
+        //点击发送请求
+        $('#submit').click(function () {
+            var page = 1,
+                num = $("input[ name='num' ]").val();
+            $.ajax({
+                url: 'http://api/lists',
+                type: 'get',
+                dataType: "json",
+                data: {
+                    page: 1,
+                    num: num
+                }
+            }).done(function (data, status, xhr) {
+                //console.log(data)
+                //将 js数据转换为 JSON 字符串
+                $('pre').html(JSON.stringify(data, null, 2))
+            })
+        })
+        //Mock拦截并返回响应数据
+        Mock.mock(/\/api\/lists/, function (options) {
+            //获取url参数num
+            const num = getParams(options.url, 'num');
+            //console.log(num);
+            var res = {
+                status: 0,
+                ['data |' + num]: [
+                    {
+                        "tid|+1": 1,
+                        title: "@title(3,5)",
+                        catalog: "index",
+                        fav: /\d{3,5}/,
+                        created: "@datetime('yyyy-MM-dd HH:mm:ss')",
+                        "isEnd|0-1": 0,
+                        "answer|0-100": 100,
+                        user: {
+                            avatar: "@image('80*80')",
+                            name: "@cname",
+                            "isVip|0-1": 0,
+                            "level|0-99": 0,
+                        }
+                    }
+                ],
+                msg: "返回Mock数据",
+            }
+            return Mock.mock(res);
+        });
+
+        //构造一个含有目标参数的正则表达式对象
+        const getParams = (url, key) => {
+
+            //设置正则方法，匹配某个url参数
+            let reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+            let link = new URL(url);
+            //console.log(link)
+            //匹配目标参数
+            let r = link.search.substr(1).match(reg);
+            //返回参数值
+            if (r != null) {
+                return decodeURI(r[2]);
+            }
+            return null;
+        }
+    </script>
+</body>
+
+</html>

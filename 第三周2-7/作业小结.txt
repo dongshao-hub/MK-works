@@ -1,0 +1,26 @@
+通过这次作业，基本了解了webpack的用法原理，掌握了基本的安装和使用方法，
+
+入口及输出、loaders、plugins、HMR 、mode模式设置、babel配置、js&css压缩
+
+常用loader以及plugins
+
+"@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.1",
+    "html-webpack-plugin": "^4.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "terser-webpack-plugin": "^2.3.5",
+
+
+
+恭喜自己又学会了一项技能
+
+         ----不要让未来的你讨厌现在的自己
